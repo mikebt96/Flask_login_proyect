@@ -7,7 +7,7 @@ Este proyecto implementa un sistema completo de autenticación (Login/Signup) ge
 
 ## 💡 Sobre el Proyecto
 Este desarrollo sigue un enfoque **híbrido**:
-- **Backend:** Lógica robusta escrita manualmente en Python (Flask, SQLAlchemy).
+- **Backend:** Lógica escrita manualmente en Python (Flask, SQLAlchemy).
 - **Frontend:** Diseño de interfaz acelerado mediante **Vibe-coding** (HTML/CSS asistido).
 
 ## 🛠️ Tecnologías
