@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CogniPower Labs</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        #background-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            z-index: -1;
+        }
+        #logo-container {
+            transform: translateY(45px) scale(0.8);
+            transition: transform 1s ease-in-out;
+        }
+        #logo-container.move-up {
+            transform: translateY(-80px) scale(0.5);
+        }
+        #logo-container img {
+            filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.7))
+                    drop-shadow(0 0 15px rgba(255, 255, 255, 0.5));
+        }
+        #brand-name {
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.7),
+                         0 0 15px rgba(255, 255, 255, 0.5);
+        }
+        #brand-name.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        #login-form-container {
+            opacity: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: opacity 1s ease-out, max-height 1s ease-out, margin-top 1s ease-out;
+        }
+        #login-form-container.show {
+            opacity: 1;
+            max-height: 500px;
+            margin-top: -8rem;
+        }
+        .login-glass-aura {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05), rgba(200, 220, 255, 0.1), rgba(255, 255, 255, 0.05));
+            background-size: 200% 200%;
+            animation: liquid-crystal-flow 15s ease infinite;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1rem;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.15), 0 0 60px rgba(255, 255, 255, 0.1);
+        }
+        @keyframes liquid-crystal-flow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .login-input {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 0.75rem 1rem;
+        }
+        .login-input::placeholder { color: rgba(255, 255, 255, 0.6); }
+    </style>
+</head>
+<body class="bg-white">
+
+    <div>
+        <video id="background-video" autoplay muted playsinline>
+            <source src="{{ url_for('static', filename='Videos/video_final.mp4') }}" type="video/mp4">
+        </video>
+    </div>
+
+    <main class="flex items-center justify-center min-h-screen p-4 overflow-hidden">
+        <div class="w-full max-w-md flex flex-col items-center">
+            <div id="logo-container" class="flex flex-col items-center text-white">
+                <img src="{{ url_for('static', filename='Imagenes/CogniPowerLabs_logoBlanco.svg') }}" alt="CogniPower Labs Logo" class="w-80 h-auto">
+                <h2 id="brand-name" class="mt-4 text-6xl md:text-7xl font-bold whitespace-nowrap">
+                    CogniPower Lab
+                </h2>
+            </div>
+            
+            <div id="login-form-container" class="w-full p-8 space-y-6 login-glass-aura">
+                <div class="text-center text-white">
+                    <h2 class="text-3xl font-bold">Bienvenido</h2>
+                    <p class="mt-2 text-gray-300">Inicia sesión en tu cuenta.</p>
+                </div>
+
+                <form class="space-y-4" action="/login" method="POST">
+                    <div>
+                        <input id="email" name="email" type="email" autocomplete="email" required class="login-input appearance-none rounded-md relative block w-full focus:outline-none focus:ring-2 focus:ring-white sm:text-sm" placeholder="Correo electrónico">
+                    </div>
+                    
+                    <div class="relative">
+                        <input id="password" name="password" type="password" autocomplete="current-password" required class="login-input appearance-none rounded-md relative block w-full focus:outline-none focus:ring-2 focus:ring-white sm:text-sm pr-10" placeholder="Contraseña">
+                        <button type="button" id="toggle-password" class="absolute inset-y-0 right-0 px-3 flex items-center text-gray-400 hover:text-white">
+                            <svg id="eye-open" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
+                            <svg id="eye-closed" class="h-5 w-5 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a10.05 10.05 0 013.4-5.119m9.75 9.75a10.05 10.05 0 003.4-5.119m-3.4 5.119a10.05 10.05 0 01-9.75-9.75m9.75 9.75L3 3m12 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                        </button>
+                    </div>
+
+                    <div class="flex items-center justify-between text-sm">
+                        <div class="flex items-center">
+                            <input id="remember-me" name="remember-me" type="checkbox" class="h-4 w-4 bg-gray-700/50 border-gray-600 rounded text-indigo-500 focus:ring-indigo-500">
+                            <label for="remember-me" class="ml-2 block text-gray-300">Mantener sesión</label>
+                        </div>
+                        <a href="#" class="font-medium text-gray-400 hover:text-white transition-colors">¿Olvidaste tu contraseña?</a>
+                    </div>
+                    
+                    <div>
+                        <button type="submit" class="w-full flex justify-center py-3 px-4 border border-transparent text-sm font-bold rounded-md text-black bg-white hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-white transition-colors">Iniciar Sesión</button>
+                    </div>
+                </form>
+
+                <div class="flex items-center justify-center space-x-2">
+                    <hr class="w-full border-gray-600">
+                    <span class="px-2 text-gray-400 text-sm whitespace-nowrap">o inicia con</span>
+                    <hr class="w-full border-gray-600">
+                </div>
+
+                <div class="flex justify-center space-x-4 text-white">
+                    <button type="button" class="p-3 rounded-full bg-white/10 hover:bg-white/20 transition-colors"><svg class="w-6 h-6" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"></path><path fill="#FF3D00" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"></path><path fill="#4CAF50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"></path><path fill="#1976D2" d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.574l6.19,5.238C39.902,35.61,44,29.937,44,24C44,22.659,43.862,21.35,43.611,20.083z"></path></svg></button>
+                    <button type="button" class="p-3 rounded-full bg-white/10 hover:bg-white/20 transition-colors"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M9.19795 21.5H13.198V13.498H16.198L17.198 9.49795H13.198V7.49795C13.198 6.49795 13.198 5.49795 15.198 5.49795H17.198V2.5H14.198C11.198 2.5 9.19795 4.5 9.19795 7.49795V9.49795H6.19795V13.498H9.19795V21.5Z"/></svg></button>
+                    <button type="button" class="p-3 rounded-full bg-white/10 hover:bg-white/20 transition-colors"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 0C8.74 0 8.333.015 7.053.072 4.228.212 2.212 2.228.072 7.053.015 8.333 0 8.74 0 12s.015 3.667.072 4.947c.14 2.825 2.156 4.841 4.981 4.981C8.333 23.985 8.74 24 12 24s3.667-.015 4.947-.072c2.825-.14 4.841-2.156 4.981-4.981C23.985 15.667 24 15.26 24 12s-.015-3.667-.072-4.947c-.14-2.825-2.156-4.841-4.981-4.981C15.667.015 15.26 0 12 0zm0 2.16c3.203 0 3.585.012 4.85.07 2.368.118 3.845 1.595 3.963 3.963.058 1.265.07 1.646.07 4.85s-.012 3.585-.07 4.85c-.118 2.368-1.595 3.845-3.963 3.963-1.265.058-1.646.07-4.85.07s-3.585-.012-4.85-.07c-2.368-.118-3.845-1.595-3.963-3.963-.058-1.265-.07-1.646-.07-4.85s.012-3.585.07-4.85c.118-2.368 1.595-3.845 3.963-3.963C8.415 2.172 8.797 2.16 12 2.16zm0 3.66c-3.4 0-6.18 2.78-6.18 6.18s2.78 6.18 6.18 6.18 6.18-2.78 6.18-6.18-2.78-6.18-6.18-6.18zM12 16.2c-2.31 0-4.18-1.87-4.18-4.18s1.87-4.18 4.18-4.18 4.18 1.87 4.18 4.18-1.87 4.18-4.18 4.18zm4.965-10.405c-.78 0-1.415.635-1.415 1.415s.635 1.415 1.415 1.415 1.415-.635 1.415-1.415-.635-1.415-1.415-1.415z"/></svg></button>
+                </div>
+
+                <p class="text-center text-sm text-gray-400 mt-6">
+                    ¿No tienes una cuenta?
+                    <a href="signup" class="font-medium text-white hover:underline">
+                        Regístrate
+                    </a>
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const backgroundVideo = document.querySelector('#background-video');
+            const logoContainer = document.querySelector('#logo-container');
+            const brandName = document.querySelector('#brand-name');
+            const loginFormContainer = document.querySelector('#login-form-container');
+            
+            const passwordInput = document.querySelector('#password');
+            const togglePasswordButton = document.querySelector('#toggle-password');
+            const eyeOpen = document.querySelector('#eye-open');
+            const eyeClosed = document.querySelector('#eye-closed');
+
+            togglePasswordButton.addEventListener('click', () => {
+                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordInput.setAttribute('type', type);
+                eyeOpen.classList.toggle('hidden');
+                eyeClosed.classList.toggle('hidden');
+            });
+
+            backgroundVideo.addEventListener('ended', () => {
+                logoContainer.classList.add('move-up');
+                brandName.classList.add('show');
+                setTimeout(() => {
+                    loginFormContainer.classList.add('show');
+                }, 300);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro - CogniPower Labs</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        #background-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            z-index: -1;
+        }
+        #logo-container {
+            transform: translateY(-80px) scale(0.5);
+        }
+        #logo-container img {
+            filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.7))
+                    drop-shadow(0 0 15px rgba(255, 255, 255, 0.5));
+        }
+        #brand-name {
+            opacity: 1;
+            transform: translateY(0);
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.7),
+                         0 0 15px rgba(255, 255, 255, 0.5);
+        }
+        #signup-form-container {
+            opacity: 1;
+            max-height: 600px; 
+            margin-top: -8rem;
+        }
+        .form-glass-aura {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05), rgba(200, 220, 255, 0.1), rgba(255, 255, 255, 0.05));
+            background-size: 200% 200%;
+            animation: liquid-crystal-flow 15s ease infinite;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1rem;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.15), 0 0 60px rgba(255, 255, 255, 0.1);
+        }
+        @keyframes liquid-crystal-flow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .form-input {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 0.75rem 1rem;
+        }
+        .form-input::placeholder { color: rgba(255, 255, 255, 0.6); }
+    </style>
+</head>
+<body class="bg-black">
+
+    <div>
+        <video id="background-video" autoplay muted loop playsinline>
+            <source src="{{ url_for('static', filename='Videos/video_final.mp4') }}" type="video/mp4">
+        </video>
+    </div>
+
+    <main class="flex items-center justify-center min-h-screen p-4 overflow-hidden">
+        <div class="w-full max-w-md flex flex-col items-center">
+            <div id="logo-container" class="flex flex-col items-center text-white">
+                <img src="{{ url_for('static', filename='Imagenes/CogniPowerLabs_logoBlanco.svg') }}" alt="CogniPower Labs Logo" class="w-80 h-auto">
+                <h2 id="brand-name" class="mt-4 text-6xl md:text-7xl font-bold whitespace-nowrap">
+                    CogniPower Lab
+                </h2>
+            </div>
+            
+            <div id="signup-form-container" class="w-full p-8 space-y-6 form-glass-aura">
+                <div class="text-center text-white">
+                    <h2 class="text-3xl font-bold">Crea tu Cuenta</h2>
+                    <p class="mt-2 text-gray-300">Únete a nosotros y explora el futuro.</p>
+                </div>
+                <form class="space-y-4" action="/signup" method="POST">
+                    <div><input id="name" name="name" required class="form-input appearance-none rounded-md relative block w-full focus:outline-none focus:ring-2 focus:ring-white sm:text-sm" placeholder="Nombre completo"></div>
+                    <div><input id ="phone" name="phone" required class="form-input appearance-none rounded-md relative block w-full focus:outline-none focus:ring-2 focus:ring-white sm:text-sm" placeholder="Número telefónico"></div>
+                    <div><input id="email" name="email" required class="form-input appearance-none rounded-md relative block w-full focus:outline-none focus:ring-2 focus:ring-white sm:text-sm" placeholder="Correo electrónico"></div>
+                    <div class="relative">
+                        <input id="password" name="password" type="password" required class="form-input appearance-none rounded-md relative block w-full focus:outline-none focus:ring-2 focus:ring-white sm:text-sm pr-10" placeholder="Contraseña">
+                        <button type="button" id="toggle-password" class="absolute inset-y-0 right-0 px-3 flex items-center text-gray-400 hover:text-white">
+                            <svg id="eye-open-1" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
+                            <svg id="eye-closed-1" class="h-5 w-5 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a10.05 10.05 0 013.4-5.119m9.75 9.75a10.05 10.05 0 003.4-5.119m-3.4 5.119a10.05 10.05 0 01-9.75-9.75m9.75 9.75L3 3m12 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                        </button>
+                    </div>
+                    <div class="relative">
+                        <input id="password-verify" name="password-verify" type="password" required class="form-input appearance-none rounded-md relative block w-full focus:outline-none focus:ring-2 focus:ring-white sm:text-sm pr-10" placeholder="Verificar contraseña">
+                        <button type="button" id="toggle-password-verify" class="absolute inset-y-0 right-0 px-3 flex items-center text-gray-400 hover:text-white">
+                            <svg id="eye-open-2" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
+                            <svg id="eye-closed-2" class="h-5 w-5 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a10.05 10.05 0 013.4-5.119m9.75 9.75a10.05 10.05 0 003.4-5.119m-3.4 5.119a10.05 10.05 0 01-9.75-9.75m9.75 9.75L3 3m12 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                        </button>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="flex items-center h-5"><input id="terms" name="terms" type="checkbox" required class="h-4 w-4 bg-gray-700/50 border-gray-600 rounded text-indigo-500 focus:ring-indigo-500"></div>
+                        <div class="ml-3 text-sm"><label for="terms" class="text-gray-400">Acepto los <a href="#" class="font-medium text-white hover:underline">Términos y Condiciones</a></label></div>
+                    </div>
+                    <div><button type="submit" class="w-full flex justify-center py-3 px-4 border border-transparent text-sm font-bold rounded-md text-black bg-white hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-white transition-colors">Registrarse</button></div>
+                </form>
+                <p class="text-center text-sm text-gray-400 pt-4">¿Ya tienes una cuenta? <a href="#" class="font-medium text-white hover:underline"> Inicia Sesión </a></p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Lógica para mostrar/ocultar contraseñas ---
+            function setupPasswordToggle(passwordInputId, toggleButtonId, eyeOpenId, eyeClosedId) {
+                const passwordInput = document.querySelector(passwordInputId);
+                const togglePasswordButton = document.querySelector(toggleButtonId);
+                const eyeOpen = document.querySelector(eyeOpenId);
+                const eyeClosed = document.querySelector(eyeClosedId);
+
+                togglePasswordButton.addEventListener('click', () => {
+                    const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                    passwordInput.setAttribute('type', type);
+                    eyeOpen.classList.toggle('hidden');
+                    eyeClosed.classList.toggle('hidden');
+                });
+            }
+
+            setupPasswordToggle('#password', '#toggle-password', '#eye-open-1', '#eye-closed-1');
+            setupPasswordToggle('#password-verify', '#toggle-password-verify', '#eye-open-2', '#eye-closed-2');
+            
+            // --- NUEVO SCRIPT PARA EL VIDEO ---
+            const backgroundVideo = document.querySelector('#background-video');
+
+            // Este evento se asegura de que el navegador conozca la duración del video
+            backgroundVideo.addEventListener('loadedmetadata', () => {
+                // Mueve el tiempo de reproducción a 1 segundo antes del final
+                backgroundVideo.currentTime = backgroundVideo.duration - 1;
+            });
+        });
+    </script>
+</body>
+</html>

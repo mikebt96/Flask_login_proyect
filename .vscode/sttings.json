@@ -1,0 +1,14 @@
+{
+
+    "files.exclude": {
+        "**/mi_entorno/": true,
+        "**/.venv/": true,
+        "**/__pycache__/": true
+    },
+
+    "python.linting.ignorePatterns": [
+        "**/mi_entorno/**/*.py",
+        "**/.venv/**/*.py",
+        ".vscode/*.json"
+    ]
+}
